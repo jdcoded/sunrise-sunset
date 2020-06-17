@@ -1,46 +1,42 @@
 import React from 'react';
 import { useLocation } from './hooks/useLocation';
+import { useDate } from './hooks/useDate';
 import { useSunData } from './hooks/useSunData';
 
 function App() {
   const { latitude, longitude } = useLocation()
 
-  // if (location) {
-  //   console.log(location)
-  //   return <p>Got location</p>
-  // } else {
-  //   console.log(location)
-  //   return null
-  // }
+  const { formattedDate, setDate } = useDate()
 
   const { results, isLoaded, error } = useSunData({
     lat: latitude,
     lng: longitude,
-    date: new Date()
+    formattedDate: formattedDate
   })
 
-  if (error) {
-    return <div>Error: {error.message}</div>
-  } else if (!isLoaded) {
-    return <div>Loading...</div>
-  } else {
-    return (
-      <ul>
-        {Object.keys(results).map((key, i) => (
-            <p key={i}>
-              <span>{key}: </span>
-              <span>{results[key]}</span>
-            </p>
+  return (
+    <div>
+      <input id="date" type="date" value={formattedDate} onChange={(e) => {
+        setDate(e.target.value)
+      }} disabled={!isLoaded}/>
+      {
+        error ? (<div>Error: {error.message}</div>) : (
+          !isLoaded ? (<div>Loading...</div>) :
+          (              
+            <ul>
+              {Object.keys(results).map((key, i) => (
+                  <li key={i}>
+                    <span>{key}: </span>
+                    <span>{results[key]}</span>
+                  </li>
+                )
+              )}
+            </ul>
           )
-        )}
-        {/* {Object.keys(results).map((key, i) => {
-          let date = results[key]
-          
-
-          }) */}
-      </ul>
-    )
-  }
+        )
+      }
+    </div>
+  )
 }
 
 export default App
