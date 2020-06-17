@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react"
-import moment from "moment"
+// import moment from "moment"
 
-export const useSunData = ({lat, lng, date}) => {
+export const useSunData = ({lat, lng, formattedDate}) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [results, setResult] = useState([]);
-  const formattedDate = moment(date).format('YYYY-MM-DD')
+  const [results, setResult] = useState([]);  
+  // console.log('useSunData, formattedDate: ', formattedDate)
 
   // Note: the empty deps array [] means
   // this useEffect will run once
