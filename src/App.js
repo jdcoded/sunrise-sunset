@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
+import moment from "moment"
 import { useLocation } from './hooks/useLocation';
-import { useDate } from './hooks/useDate';
 import { useSunData } from './hooks/useSunData';
 
 function App() {
   const { latitude, longitude } = useLocation()
 
-  const { formattedDate, setDate } = useDate()
+  const [ date, setDate ] = useState(new Date())
+  const formattedDate = moment(date).format('YYYY-MM-DD')
 
   const { results, isLoaded, error } = useSunData({
     lat: latitude,
@@ -40,3 +41,6 @@ function App() {
 }
 
 export default App
+
+// Make this useDate hook obsolete before next meeting DONE
+// Get bell curve chart loading on page
