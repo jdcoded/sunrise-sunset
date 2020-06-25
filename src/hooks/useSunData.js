@@ -5,7 +5,7 @@ export const useSunData = ({lat, lng, formattedDate}) => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [results, setResult] = useState([]);  
-  // console.log('useSunData, formattedDate: ', formattedDate)
+  // console.log(lat, lng, formattedDate)
 
   // Note: the empty deps array [] means
   // this useEffect will run once
