@@ -6,7 +6,7 @@ import { useSunData } from './hooks/useSunData';
 function App() {
   const { latitude, longitude } = useLocation()
 
-  const [ date, setDate ] = useState(new Date()) // move to App?
+  const [ date, setDate ] = useState(new Date())
   const formattedDate = moment(date).format('YYYY-MM-DD')
 
   const { results, isLoaded, error } = useSunData({
