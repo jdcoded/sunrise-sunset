@@ -44,3 +44,5 @@ export default App
 
 // Make this useDate hook obsolete before next meeting DONE
 // Get bell curve chart loading on page
+// Also look at chartjs to show sun rise data
+// https://www.chartjs.org/samples/latest/scales/time/line-point-data.html
