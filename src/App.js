@@ -9,8 +9,8 @@ function App() {
 
   const [ date, setDate ] = useState(new Date())
   const formattedDate = moment(date).format('YYYY-MM-DD')
-  const todayMidnight = '2020-07-01' // hardcoded as string since setHours was causing infinite re-renders
-  const tomorrowMidnight = '2020-07-02' // hardcoded as string since setHours was causing infinite re-renders
+  const todayMidnight = formattedDate
+  const tomorrowMidnight = moment(date).add(1,'d').format('YYYY-MM-DD')
   // console.log(todayMidnight)
   // console.log(tomorrowMidnight)
   // debugger
@@ -21,54 +21,58 @@ function App() {
     formattedDate: formattedDate
   })
 
+  // console.log('results: ', results)
+
+  // let sunriseTime, solarNoon, sunsetTime
+
+  const resultsArray = Object.keys(results)
+
+  const formattedData = resultsArray.map((key, i) => {
+    // console.log('result: ', results[key])
+    if (typeof results[key] == 'string') {
+      return {
+        x: moment(results[key]).toDate(),
+        // debug: moment(results[key]).format('HH:mm'),
+        // key
+        // y: i
+      }
+    }
+    return null
+  }).filter((o) => o ).sort((a, b) => a.x.valueOf() - b.x.valueOf()).map((o, i) => {
+    return {
+      ...o,
+      i,
+      y: i < Math.floor(resultsArray.length / 2) ? i : resultsArray.length - 2 - i
+    }
+  })
+  
+  console.log('formattedData: ', formattedData)
+
   const chart = {
     labels: ['Today'],
     datasets: [
       {
         label: 'Sunrise-Sunset',
         fill: false,
-        lineTension: 0.5,
+        lineTension: 0.1, // explore this to give line more of a bell curve
         backgroundColor: 'rgba(75,192,192,1)',
         borderColor: 'rgba(0,0,0,1)',
         borderWidth: 2,
-        data: [
-          // {
-          //   x: '2020-07-01T04:03', // night
-          //   y: 0
-          // },
-          // {
-          //   x: '2020-07-01T04:42', // astronomical twilight begin
-          //   y: 0
-          // },
-          // {
-          //   x: '2020-07-01T05:17', // nautical twilight begin
-          //   y: 1
-          // },
-          {
-            x: '2020-07-01T12:46:33+00:00', // sunrise
-            y: 2
-          },
-          {
-            t: '2020-07-01T19:57:23+00:00', // noon
-            y: 3
-          },
-          {
-            t: '2020-07-02T03:08:13+00:00', // sunset
-            y: 2
-          },
-          // {
-          //   x: '2020-07-01T21:12:45', // nautical twilight end
-          //   y: 1
-          // },
-          // {
-          //   x: '2020-07-01T21:51:38', // astronomical twilight end
-          //   y: 0
-          // },
-          // {
-          //   x: '2020-07-01T21:51:38', // night
-          //   y: 0
-          // },
-        ]
+        // data is null on first render and doesn't get updated via map
+        data: formattedData
+      },
+      {
+        label: 'currentTime',
+        fill: false,
+        lineTension: 0.1, // explore this to give line more of a bell curve
+        backgroundColor: 'rgba(75,192,192,1)',
+        borderColor: 'rgba(0,0,0,1)',
+        borderWidth: 2,
+        // data is null on first render and doesn't get updated via map
+        data: [{
+          x: new Date(),
+          y: 2
+        }]
       }
     ]
   }
@@ -83,40 +87,30 @@ function App() {
           error ? (<div>Error: {error.message}</div>) : (
             !isLoaded ? (<div>Loading...</div>) :
             (
-              <ul>
-                {Object.keys(results).map((key, i) => (
-                    <li key={i}>
-                      <span>{key}: </span>
-                      <span>{results[key]}</span>
-                    </li>
-                  )
-                )}
-              </ul>
+              <Line
+                data={chart}
+                // why is data coming from chart but options isn't?
+                options={{
+                  scales: {
+                    xAxes: [{
+                        type: 'time',
+                        time: {
+                          unit: 'hour',
+                          displayFormats: {
+                            hour: 'HH:mm'
+                          }
+                        },
+                        ticks: {
+                          min: todayMidnight,
+                          max: tomorrowMidnight
+                        }
+                    }]
+                  }
+              }}
+            />  
             )
           )
         }
-      </div>
-      <div>
-        <Line
-            data={chart}
-            options={{
-              scales: {
-                xAxes: [{
-                    type: 'time',
-                    time: {
-                      unit: 'hour',
-                      displayFormats: {
-                        hour: 'HH:mm'
-                      }
-                    },
-                    ticks: {
-                      min: todayMidnight,
-                      max: tomorrowMidnight
-                    }
-                }]
-              }
-          }}
-          />
       </div>
     </>
   )
@@ -128,3 +122,8 @@ export default App
 // Get bell curve chart loading on page
 // Also look at chartjs to show sun rise data
 // https://www.chartjs.org/samples/latest/scales/time/line-point-data.html
+
+// Add labels to all data points on chart
+// Kill all graph UI as much as possible (y axis, legend, background grid, etc.)
+// Explore a gradient background for chart
+// Make curve smoother
