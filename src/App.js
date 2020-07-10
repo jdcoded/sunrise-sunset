@@ -65,7 +65,8 @@ function App() {
         label: 'currentTime',
         fill: false,
         lineTension: 0.1, // explore this to give line more of a bell curve
-        backgroundColor: 'rgba(75,192,192,1)',
+        radius: 6,
+        backgroundColor: 'orange',
         borderColor: 'rgba(0,0,0,1)',
         borderWidth: 2,
         // data is null on first render and doesn't get updated via map
@@ -77,8 +78,39 @@ function App() {
     ]
   }
 
+  const bgArray = [
+    /* 0 */ '#000000',
+    /* 1 */ '#000000',
+    /* 2 */ '#000000',
+    /* 3 */ 'linear-gradient(135deg, #5e7fb1 0%, #dce8f7 61%, #eff1f4 72%, #fce1a8 88%, #f7ec86 100%)', // dawn
+    /* 4 */ 'linear-gradient(135deg, #5e7fb1 0%, #dce8f7 61%, #eff1f4 72%, #fce1a8 88%, #f7ec86 100%)', // dawn
+    /* 5 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 6 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 7 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 8 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 9 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 10 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 11 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 12 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 13 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 14 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 15 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 16 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 17 */ 'linear-gradient(135deg, #a2e0f9 6%, #cef5fc 39%, #eafaeb 70%, #fefcd3 88%, #fdf4ba 100%)', // daylight
+    /* 18 */ 'linear-gradient(135deg, #171c33 0%, #525f83 42%, #848896 63%, #bb9d78 78%, #f6e183 100%)', // sunset
+    /* 19 */ 'linear-gradient(135deg, #171c33 0%, #525f83 42%, #848896 63%, #bb9d78 78%, #f6e183 100%)', // magic hour 1
+    /* 20 */ 'linear-gradient(135deg, #171c33 0%, #525f83 42%, #848896 63%, #bb9d78 78%, #f6e183 100%)', // magic hour 1
+    /* 21 */ '#000000',
+    /* 22 */ '#000000',
+    /* 23 */ '#000000',    
+  ]
+
+  const background = {
+    background: bgArray[new Date().getHours()]
+  }
+
   return (
-    <>
+    <div style={background}>
       <div>
         <input id="date" type="date" value={formattedDate} onChange={(e) => {
           setDate(e.target.value)
@@ -90,21 +122,34 @@ function App() {
               <Line
                 data={chart}
                 // why is data coming from chart but options isn't?
-                options={{
+                options={{                  
                   scales: {
                     xAxes: [{
                         type: 'time',
                         time: {
                           unit: 'hour',
                           displayFormats: {
-                            hour: 'HH:mm'
+                            hour: 'hA'
                           }
                         },
                         ticks: {
                           min: todayMidnight,
                           max: tomorrowMidnight
+                        },
+                        gridLines: {
+                          display:false
                         }
-                    }]
+                    }],
+                    yAxes: [{
+                      display: false,
+                      gridLines: {
+                        display:false
+                      },
+                      ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 8
+                      },
+                    }],
                   }
               }}
             />  
@@ -112,7 +157,7 @@ function App() {
           )
         }
       </div>
-    </>
+    </div>
   )
 }
 
