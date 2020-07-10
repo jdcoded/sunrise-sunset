@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/sunrise-sunset/static/css/main.5ecd60fb.chunk.css",
-    "main.js": "/sunrise-sunset/static/js/main.c0726417.chunk.js",
-    "main.js.map": "/sunrise-sunset/static/js/main.c0726417.chunk.js.map",
+    "main.js": "/sunrise-sunset/static/js/main.b7223c36.chunk.js",
+    "main.js.map": "/sunrise-sunset/static/js/main.b7223c36.chunk.js.map",
     "runtime-main.js": "/sunrise-sunset/static/js/runtime-main.641aec74.js",
     "runtime-main.js.map": "/sunrise-sunset/static/js/runtime-main.641aec74.js.map",
     "static/js/2.59f38f80.chunk.js": "/sunrise-sunset/static/js/2.59f38f80.chunk.js",
     "static/js/2.59f38f80.chunk.js.map": "/sunrise-sunset/static/js/2.59f38f80.chunk.js.map",
     "index.html": "/sunrise-sunset/index.html",
-    "precache-manifest.7702f0f7c8ac3bfe7216b83405bf29b2.js": "/sunrise-sunset/precache-manifest.7702f0f7c8ac3bfe7216b83405bf29b2.js",
+    "precache-manifest.126c9d47c1e5c6ec56781690f2e98b6d.js": "/sunrise-sunset/precache-manifest.126c9d47c1e5c6ec56781690f2e98b6d.js",
     "service-worker.js": "/sunrise-sunset/service-worker.js",
     "static/css/main.5ecd60fb.chunk.css.map": "/sunrise-sunset/static/css/main.5ecd60fb.chunk.css.map",
     "static/js/2.59f38f80.chunk.js.LICENSE.txt": "/sunrise-sunset/static/js/2.59f38f80.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.641aec74.js",
     "static/js/2.59f38f80.chunk.js",
     "static/css/main.5ecd60fb.chunk.css",
-    "static/js/main.c0726417.chunk.js"
+    "static/js/main.b7223c36.chunk.js"
   ]
 }
