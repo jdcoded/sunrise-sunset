@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Line } from "react-chartjs-2";
+import { Line } from 'react-chartjs-2';
+import 'chartjs-plugin-annotation';
 import moment from "moment";
 import "./App.css";
 import { useLocation } from "./hooks/useLocation";
@@ -43,8 +44,6 @@ function App() {
       };
     });
 
-  // console.log('formattedData: ', formattedData)
-
   const chart = {
     labels: ["Today"],
     datasets: [
@@ -58,45 +57,7 @@ function App() {
         // data is null on first render and doesn't get updated via map
         data: formattedData,
       },
-      {
-        label: "currentTime",
-        fill: false,
-        lineTension: 0.1, // explore this to give line more of a bell curve
-        radius: 6,
-        backgroundColor: "orange",
-        borderColor: "rgba(0,0,0,1)",
-        borderWidth: 2,
-        // data is null on first render and doesn't get updated via map
-        data: [
-          {
-            x: new Date(),
-            y: 2,
-          },
-        ],
-      },
-    ],
-    plugins: [
-      {
-        annotation: {
-          annotations: [
-            {
-              drawTime: "afterDatasetsDraw",
-              type: "line",
-              mode: "vertical",
-              scaleID: "x-axis-1",
-              value: 12,
-              borderWidth: 2,
-              borderColor: "white",
-              label: {
-                content: "Current Time",
-                enabled: true,
-                position: "top",
-              },
-            },
-          ],
-        },
-      },
-    ],
+    ],    
   };
 
   const bgArray = [
@@ -150,6 +111,24 @@ function App() {
           <Line
             data={chart}
             options={{
+              annotation: {
+                annotations: [
+                  {
+                    drawTime: "afterDatasetsDraw",
+                    type: "line",
+                    mode: "vertical",
+                    scaleID: "x-axis-0",
+                    value: new Date(),
+                    borderWidth: 2,
+                    borderColor: "#ffd630",
+                    label: {
+                      content: "Current Time",
+                      enabled: true,
+                      position: "top",
+                    },
+                  },
+                ],
+              },
               legend: {
                 display: false,
               },
@@ -194,6 +173,3 @@ function App() {
 }
 
 export default App;
-
-// Add labels to all data points on chart
-// Make curve smoother
