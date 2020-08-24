@@ -44,8 +44,6 @@ function App() {
       };
     });
 
-  // console.log('formattedData: ', formattedData)
-
   const chart = {
     labels: ["Today"],
     datasets: [
@@ -59,22 +57,6 @@ function App() {
         // data is null on first render and doesn't get updated via map
         data: formattedData,
       },
-      // {
-      //   label: "currentTime",
-      //   fill: false,
-      //   lineTension: 0.1, // explore this to give line more of a bell curve
-      //   radius: 6,
-      //   backgroundColor: "orange",
-      //   borderColor: "rgba(0,0,0,1)",
-      //   borderWidth: 2,
-      //   // data is null on first render and doesn't get updated via map
-      //   data: [
-      //     {
-      //       x: new Date(),
-      //       y: 2,
-      //     },
-      //   ],
-      // },
     ],    
   };
 
@@ -191,6 +173,3 @@ function App() {
 }
 
 export default App;
-
-// Add labels to all data points on chart
-// Make curve smoother
