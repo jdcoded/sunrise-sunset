@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-// import * as chartjs from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import 'chartjs-plugin-annotation';
 import moment from "moment";
-import 'chartjs-plugin-annotation';
 import "./App.css";
 import { useLocation } from "./hooks/useLocation";
 import { useSunData } from "./hooks/useSunData";
