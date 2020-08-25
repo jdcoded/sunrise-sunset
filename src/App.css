@@ -2,7 +2,11 @@
   text-align: center;
 }
 
-.container {
+input[type="date"] {
+  z-index: 1;
+}
+
+.container, .chart-wrapper {
   height: 100vh;
 }
 
