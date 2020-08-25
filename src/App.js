@@ -10,9 +10,9 @@ function App() {
   const { latitude, longitude } = useLocation();
 
   const [date, setDate] = useState(new Date());
-  const formattedDate = moment(date).format("YYYY-MM-DD");
+  const formattedDate = moment(date.toISOString()).format("YYYY-MM-DD");
   const todayMidnight = formattedDate;
-  const tomorrowMidnight = moment(date).add(1, "d").format("YYYY-MM-DD");
+  const tomorrowMidnight = moment(date.toISOString()).add(1, "d").format("YYYY-MM-DD");
 
   const { results, isLoaded, error } = useSunData({
     lat: latitude,
@@ -43,6 +43,7 @@ function App() {
             : resultsArray.length - 2 - i,
       };
     });
+
 
   const chart = {
     labels: ["Today"],
@@ -108,64 +109,67 @@ function App() {
         ) : !isLoaded ? (
           <div>Loading...</div>
         ) : (
-          <Line
-            data={chart}
-            options={{
-              annotation: {
-                annotations: [
-                  {
-                    drawTime: "afterDatasetsDraw",
-                    type: "line",
-                    mode: "vertical",
-                    scaleID: "x-axis-0",
-                    value: new Date(),
-                    borderWidth: 2,
-                    borderColor: "#ffd630",
-                    label: {
-                      content: "Current Time",
-                      enabled: true,
-                      position: "top",
-                    },
-                  },
-                ],
-              },
-              legend: {
-                display: false,
-              },
-              scales: {
-                xAxes: [
-                  {
-                    type: "time",
-                    time: {
-                      unit: "hour",
-                      displayFormats: {
-                        hour: "hA",
+          <div className="chart-wrapper">
+            <Line
+              data={chart}
+              options={{
+                annotation: {
+                  annotations: [
+                    {
+                      drawTime: "afterDatasetsDraw",
+                      type: "line",
+                      mode: "vertical",
+                      scaleID: "x-axis-0",
+                      value: new Date(),
+                      borderWidth: 2,
+                      borderColor: "#ffd630",
+                      label: {
+                        content: "Current Time",
+                        enabled: true,
+                        position: "center",
                       },
                     },
-                    ticks: {
-                      min: todayMidnight,
-                      max: tomorrowMidnight,
+                  ],
+                },
+                maintainAspectRatio: false,
+                legend: {
+                  display: false,
+                },
+                scales: {
+                  xAxes: [
+                    {
+                      type: "time",
+                      time: {
+                        unit: "hour",
+                        displayFormats: {
+                          hour: "hA",
+                        },
+                      },
+                      ticks: {
+                        min: todayMidnight,
+                        max: tomorrowMidnight,
+                      },
+                      gridLines: {
+                        display: false,
+                      },
                     },
-                    gridLines: {
+                  ],
+                  yAxes: [
+                    {
                       display: false,
+                      gridLines: {
+                        display: false,
+                      },
+                      ticks: {
+                        suggestedMin: 0,
+                        suggestedMax: 16,
+                      },
                     },
-                  },
-                ],
-                yAxes: [
-                  {
-                    display: false,
-                    gridLines: {
-                      display: false,
-                    },
-                    ticks: {
-                      suggestedMin: 0,
-                      suggestedMax: 8,
-                    },
-                  },
-                ],
-              },
-            }}
-          />
+                  ],
+                },
+              }}
+            />
+          </div>
         )}
       </div>
     </div>
