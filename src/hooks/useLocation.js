@@ -7,7 +7,17 @@ export const useLocation = () => {
   })
 
   useEffect(() => {
+
+    const sunriseCoords = localStorage.getItem('sunriseCoords')
+    
+    if (sunriseCoords) {
+      console.log('location cache hit')
+      setLocation(sunriseCoords)
+      return
+    }
+
     navigator.geolocation.getCurrentPosition(({coords}) => {
+      localStorage.setItem('sunriseCoords', JSON.stringify(coords))
       setLocation(coords)
     })
   }, [])
