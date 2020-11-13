@@ -51,15 +51,30 @@ function App() {
       {
         label: "Sunrise-Sunset",
         fill: false,
-        lineTension: 0.1, // explore this to give line more of a bell curve
+        lineTension: 0.4, // explore this to give line more of a bell curve
         backgroundColor: "rgba(75,192,192,1)",
         borderColor: "rgba(0,0,0,1)",
         borderWidth: 2,
         // data is null on first render and doesn't get updated via map
-        data: formattedData,
+        data: [
+          formattedData[Object.keys(formattedData)[0]],
+          formattedData[Object.keys(formattedData)[4]],
+          formattedData[Object.keys(formattedData)[8]]
+        ],
       },
     ],    
   };
+
+  const firstDataVal = formattedData[Object.keys(formattedData)[0]]
+  const lastDataVal = formattedData[Object.keys(formattedData)[8]]
+  
+  let firstDateTime = todayMidnight
+  let lastDateTime = tomorrowMidnight
+
+  if (firstDataVal && lastDataVal) {
+    firstDateTime = Object.values(firstDataVal)
+    lastDateTime = Object.values(lastDataVal)
+  }
 
   const bgArray = [
     /* 0 */ "#000000",
@@ -146,9 +161,13 @@ function App() {
                         },
                       },
                       ticks: {
-                        min: todayMidnight,
-                        max: tomorrowMidnight,
+                        min: firstDateTime[0],
+                        max: lastDateTime[0],
                       },
+                      // ticks: {
+                      //   min: todayMidnight,
+                      //   max: tomorrowMidnight,
+                      // },
                       gridLines: {
                         display: false,
                       },
