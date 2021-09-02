@@ -13,7 +13,7 @@
     "gh-pages": "^3.1.0",
     "localforage": "^1.9.0",
     "moment": "^2.25.3",
-    "object-path": "^0.11.5",
+    "object-path": "^0.11.6",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
